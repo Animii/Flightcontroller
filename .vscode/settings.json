@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "hw_i2c.h": "c",
+        "hw.h": "c",
+        "math.h": "c",
+        "stm32f1xx_it.h": "c",
+        "hw_conf.h": "c",
+        "stdbool.h": "c",
+        "hw_msp.h": "c",
+        "main.h": "c",
+        "bsp.h": "c",
+        "stm32f1xx_hal.h": "c"
+    }
+}

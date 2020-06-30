@@ -1,0 +1,570 @@
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"hw_uart.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.HW_UART_DeInit,"ax",%progbits
+  16              		.align	1
+  17              		.global	HW_UART_DeInit
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	HW_UART_DeInit:
+  25              	.LFB112:
+  26              		.file 1 "App/Src/hw_uart.c"
+   1:App/Src/hw_uart.c **** 
+   2:App/Src/hw_uart.c **** 
+   3:App/Src/hw_uart.c **** #include "hw_uart.h"
+   4:App/Src/hw_uart.c **** #include "stm32f1xx_hal_uart.h"
+   5:App/Src/hw_uart.c **** 
+   6:App/Src/hw_uart.c **** static UART_HandleTypeDef huart;
+   7:App/Src/hw_uart.c **** 
+   8:App/Src/hw_uart.c **** void HW_UART_Init(void)
+   9:App/Src/hw_uart.c **** {
+  10:App/Src/hw_uart.c ****     HW_UART_IoInit();
+  11:App/Src/hw_uart.c ****     huart.Instance = USART1;
+  12:App/Src/hw_uart.c ****     huart.Init.BaudRate = 115200;
+  13:App/Src/hw_uart.c ****     huart.Init.WordLength = UART_WORDLENGTH_8B;
+  14:App/Src/hw_uart.c ****     huart.Init.StopBits = UART_STOPBITS_1;
+  15:App/Src/hw_uart.c ****     huart.Init.Parity = UART_PARITY_NONE;
+  16:App/Src/hw_uart.c ****     huart.Init.Mode = UART_MODE_TX_RX;
+  17:App/Src/hw_uart.c ****     huart.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  18:App/Src/hw_uart.c ****     huart.Init.OverSampling = UART_OVERSAMPLING_16;
+  19:App/Src/hw_uart.c ****     if (HAL_UART_Init(&huart) != HAL_OK)
+  20:App/Src/hw_uart.c ****     {
+  21:App/Src/hw_uart.c ****         Error_Handler();
+  22:App/Src/hw_uart.c ****     }
+  23:App/Src/hw_uart.c **** }
+  24:App/Src/hw_uart.c **** 
+  25:App/Src/hw_uart.c **** void HW_UART_DeInit(void)
+  26:App/Src/hw_uart.c **** {
+  27              		.loc 1 26 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  27:App/Src/hw_uart.c ****    
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s 			page 2
+
+
+  28:App/Src/hw_uart.c **** }
+  32              		.loc 1 28 1 view .LVU1
+  33 0000 7047     		bx	lr
+  34              		.cfi_endproc
+  35              	.LFE112:
+  37              		.section	.text.HW_UART_IoInit,"ax",%progbits
+  38              		.align	1
+  39              		.global	HW_UART_IoInit
+  40              		.syntax unified
+  41              		.thumb
+  42              		.thumb_func
+  43              		.fpu softvfp
+  45              	HW_UART_IoInit:
+  46              	.LFB113:
+  29:App/Src/hw_uart.c **** 
+  30:App/Src/hw_uart.c **** void HW_UART_IoInit(void)
+  31:App/Src/hw_uart.c **** {
+  47              		.loc 1 31 1 view -0
+  48              		.cfi_startproc
+  49              		@ args = 0, pretend = 0, frame = 24
+  50              		@ frame_needed = 0, uses_anonymous_args = 0
+  51 0000 30B5     		push	{r4, r5, lr}
+  52              	.LCFI0:
+  53              		.cfi_def_cfa_offset 12
+  54              		.cfi_offset 4, -12
+  55              		.cfi_offset 5, -8
+  56              		.cfi_offset 14, -4
+  57 0002 87B0     		sub	sp, sp, #28
+  58              	.LCFI1:
+  59              		.cfi_def_cfa_offset 40
+  32:App/Src/hw_uart.c ****     GPIO_InitTypeDef GPIO_InitStruct = {0};
+  60              		.loc 1 32 5 view .LVU3
+  61              		.loc 1 32 22 is_stmt 0 view .LVU4
+  62 0004 0024     		movs	r4, #0
+  63 0006 0494     		str	r4, [sp, #16]
+  33:App/Src/hw_uart.c **** 
+  34:App/Src/hw_uart.c ****     /* Peripheral clock enable */
+  35:App/Src/hw_uart.c ****     __HAL_RCC_USART1_CLK_ENABLE();
+  64              		.loc 1 35 5 is_stmt 1 view .LVU5
+  65              	.LBB2:
+  66              		.loc 1 35 5 view .LVU6
+  67              		.loc 1 35 5 view .LVU7
+  68 0008 144B     		ldr	r3, .L4
+  69 000a 9A69     		ldr	r2, [r3, #24]
+  70 000c 42F48042 		orr	r2, r2, #16384
+  71 0010 9A61     		str	r2, [r3, #24]
+  72              		.loc 1 35 5 view .LVU8
+  73 0012 9A69     		ldr	r2, [r3, #24]
+  74 0014 02F48042 		and	r2, r2, #16384
+  75 0018 0092     		str	r2, [sp]
+  76              		.loc 1 35 5 view .LVU9
+  77 001a 009A     		ldr	r2, [sp]
+  78              	.LBE2:
+  79              		.loc 1 35 5 view .LVU10
+  36:App/Src/hw_uart.c **** 
+  37:App/Src/hw_uart.c ****     __HAL_RCC_GPIOA_CLK_ENABLE();
+  80              		.loc 1 37 5 view .LVU11
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s 			page 3
+
+
+  81              	.LBB3:
+  82              		.loc 1 37 5 view .LVU12
+  83              		.loc 1 37 5 view .LVU13
+  84 001c 9A69     		ldr	r2, [r3, #24]
+  85 001e 42F00402 		orr	r2, r2, #4
+  86 0022 9A61     		str	r2, [r3, #24]
+  87              		.loc 1 37 5 view .LVU14
+  88 0024 9B69     		ldr	r3, [r3, #24]
+  89 0026 03F00403 		and	r3, r3, #4
+  90 002a 0193     		str	r3, [sp, #4]
+  91              		.loc 1 37 5 view .LVU15
+  92 002c 019B     		ldr	r3, [sp, #4]
+  93              	.LBE3:
+  94              		.loc 1 37 5 view .LVU16
+  38:App/Src/hw_uart.c ****     /**USART1 GPIO Configuration    
+  39:App/Src/hw_uart.c ****     PA9     ------> USART1_TX
+  40:App/Src/hw_uart.c ****     PA10     ------> USART1_RX 
+  41:App/Src/hw_uart.c ****     */
+  42:App/Src/hw_uart.c ****     GPIO_InitStruct.Pin = GPIO_PIN_9;
+  95              		.loc 1 42 5 view .LVU17
+  96              		.loc 1 42 25 is_stmt 0 view .LVU18
+  97 002e 4FF40073 		mov	r3, #512
+  98 0032 0293     		str	r3, [sp, #8]
+  43:App/Src/hw_uart.c ****     GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+  99              		.loc 1 43 5 is_stmt 1 view .LVU19
+ 100              		.loc 1 43 26 is_stmt 0 view .LVU20
+ 101 0034 0223     		movs	r3, #2
+ 102 0036 0393     		str	r3, [sp, #12]
+  44:App/Src/hw_uart.c ****     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+ 103              		.loc 1 44 5 is_stmt 1 view .LVU21
+ 104              		.loc 1 44 27 is_stmt 0 view .LVU22
+ 105 0038 0323     		movs	r3, #3
+ 106 003a 0593     		str	r3, [sp, #20]
+  45:App/Src/hw_uart.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 107              		.loc 1 45 5 is_stmt 1 view .LVU23
+ 108 003c 084D     		ldr	r5, .L4+4
+ 109 003e 02A9     		add	r1, sp, #8
+ 110 0040 2846     		mov	r0, r5
+ 111 0042 FFF7FEFF 		bl	HAL_GPIO_Init
+ 112              	.LVL0:
+  46:App/Src/hw_uart.c **** 
+  47:App/Src/hw_uart.c ****     GPIO_InitStruct.Pin = GPIO_PIN_10;
+ 113              		.loc 1 47 5 view .LVU24
+ 114              		.loc 1 47 25 is_stmt 0 view .LVU25
+ 115 0046 4FF48063 		mov	r3, #1024
+ 116 004a 0293     		str	r3, [sp, #8]
+  48:App/Src/hw_uart.c ****     GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+ 117              		.loc 1 48 5 is_stmt 1 view .LVU26
+ 118              		.loc 1 48 26 is_stmt 0 view .LVU27
+ 119 004c 0394     		str	r4, [sp, #12]
+  49:App/Src/hw_uart.c ****     GPIO_InitStruct.Pull = GPIO_NOPULL;
+ 120              		.loc 1 49 5 is_stmt 1 view .LVU28
+ 121              		.loc 1 49 26 is_stmt 0 view .LVU29
+ 122 004e 0494     		str	r4, [sp, #16]
+  50:App/Src/hw_uart.c ****     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+ 123              		.loc 1 50 5 is_stmt 1 view .LVU30
+ 124 0050 02A9     		add	r1, sp, #8
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s 			page 4
+
+
+ 125 0052 2846     		mov	r0, r5
+ 126 0054 FFF7FEFF 		bl	HAL_GPIO_Init
+ 127              	.LVL1:
+  51:App/Src/hw_uart.c **** }
+ 128              		.loc 1 51 1 is_stmt 0 view .LVU31
+ 129 0058 07B0     		add	sp, sp, #28
+ 130              	.LCFI2:
+ 131              		.cfi_def_cfa_offset 12
+ 132              		@ sp needed
+ 133 005a 30BD     		pop	{r4, r5, pc}
+ 134              	.L5:
+ 135              		.align	2
+ 136              	.L4:
+ 137 005c 00100240 		.word	1073876992
+ 138 0060 00080140 		.word	1073809408
+ 139              		.cfi_endproc
+ 140              	.LFE113:
+ 142              		.section	.text.HW_UART_Init,"ax",%progbits
+ 143              		.align	1
+ 144              		.global	HW_UART_Init
+ 145              		.syntax unified
+ 146              		.thumb
+ 147              		.thumb_func
+ 148              		.fpu softvfp
+ 150              	HW_UART_Init:
+ 151              	.LFB111:
+   9:App/Src/hw_uart.c ****     HW_UART_IoInit();
+ 152              		.loc 1 9 1 is_stmt 1 view -0
+ 153              		.cfi_startproc
+ 154              		@ args = 0, pretend = 0, frame = 0
+ 155              		@ frame_needed = 0, uses_anonymous_args = 0
+ 156 0000 08B5     		push	{r3, lr}
+ 157              	.LCFI3:
+ 158              		.cfi_def_cfa_offset 8
+ 159              		.cfi_offset 3, -8
+ 160              		.cfi_offset 14, -4
+  10:App/Src/hw_uart.c ****     huart.Instance = USART1;
+ 161              		.loc 1 10 5 view .LVU33
+ 162 0002 FFF7FEFF 		bl	HW_UART_IoInit
+ 163              	.LVL2:
+  11:App/Src/hw_uart.c ****     huart.Init.BaudRate = 115200;
+ 164              		.loc 1 11 5 view .LVU34
+  11:App/Src/hw_uart.c ****     huart.Init.BaudRate = 115200;
+ 165              		.loc 1 11 20 is_stmt 0 view .LVU35
+ 166 0006 0A48     		ldr	r0, .L10
+ 167 0008 0A4B     		ldr	r3, .L10+4
+ 168 000a 0360     		str	r3, [r0]
+  12:App/Src/hw_uart.c ****     huart.Init.WordLength = UART_WORDLENGTH_8B;
+ 169              		.loc 1 12 5 is_stmt 1 view .LVU36
+  12:App/Src/hw_uart.c ****     huart.Init.WordLength = UART_WORDLENGTH_8B;
+ 170              		.loc 1 12 25 is_stmt 0 view .LVU37
+ 171 000c 4FF4E133 		mov	r3, #115200
+ 172 0010 4360     		str	r3, [r0, #4]
+  13:App/Src/hw_uart.c ****     huart.Init.StopBits = UART_STOPBITS_1;
+ 173              		.loc 1 13 5 is_stmt 1 view .LVU38
+  13:App/Src/hw_uart.c ****     huart.Init.StopBits = UART_STOPBITS_1;
+ 174              		.loc 1 13 27 is_stmt 0 view .LVU39
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s 			page 5
+
+
+ 175 0012 0023     		movs	r3, #0
+ 176 0014 8360     		str	r3, [r0, #8]
+  14:App/Src/hw_uart.c ****     huart.Init.Parity = UART_PARITY_NONE;
+ 177              		.loc 1 14 5 is_stmt 1 view .LVU40
+  14:App/Src/hw_uart.c ****     huart.Init.Parity = UART_PARITY_NONE;
+ 178              		.loc 1 14 25 is_stmt 0 view .LVU41
+ 179 0016 C360     		str	r3, [r0, #12]
+  15:App/Src/hw_uart.c ****     huart.Init.Mode = UART_MODE_TX_RX;
+ 180              		.loc 1 15 5 is_stmt 1 view .LVU42
+  15:App/Src/hw_uart.c ****     huart.Init.Mode = UART_MODE_TX_RX;
+ 181              		.loc 1 15 23 is_stmt 0 view .LVU43
+ 182 0018 0361     		str	r3, [r0, #16]
+  16:App/Src/hw_uart.c ****     huart.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+ 183              		.loc 1 16 5 is_stmt 1 view .LVU44
+  16:App/Src/hw_uart.c ****     huart.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+ 184              		.loc 1 16 21 is_stmt 0 view .LVU45
+ 185 001a 0C22     		movs	r2, #12
+ 186 001c 4261     		str	r2, [r0, #20]
+  17:App/Src/hw_uart.c ****     huart.Init.OverSampling = UART_OVERSAMPLING_16;
+ 187              		.loc 1 17 5 is_stmt 1 view .LVU46
+  17:App/Src/hw_uart.c ****     huart.Init.OverSampling = UART_OVERSAMPLING_16;
+ 188              		.loc 1 17 26 is_stmt 0 view .LVU47
+ 189 001e 8361     		str	r3, [r0, #24]
+  18:App/Src/hw_uart.c ****     if (HAL_UART_Init(&huart) != HAL_OK)
+ 190              		.loc 1 18 5 is_stmt 1 view .LVU48
+  18:App/Src/hw_uart.c ****     if (HAL_UART_Init(&huart) != HAL_OK)
+ 191              		.loc 1 18 29 is_stmt 0 view .LVU49
+ 192 0020 C361     		str	r3, [r0, #28]
+  19:App/Src/hw_uart.c ****     {
+ 193              		.loc 1 19 5 is_stmt 1 view .LVU50
+  19:App/Src/hw_uart.c ****     {
+ 194              		.loc 1 19 9 is_stmt 0 view .LVU51
+ 195 0022 FFF7FEFF 		bl	HAL_UART_Init
+ 196              	.LVL3:
+  19:App/Src/hw_uart.c ****     {
+ 197              		.loc 1 19 8 view .LVU52
+ 198 0026 00B9     		cbnz	r0, .L9
+ 199              	.L6:
+  23:App/Src/hw_uart.c **** 
+ 200              		.loc 1 23 1 view .LVU53
+ 201 0028 08BD     		pop	{r3, pc}
+ 202              	.L9:
+  21:App/Src/hw_uart.c ****     }
+ 203              		.loc 1 21 9 is_stmt 1 view .LVU54
+ 204 002a FFF7FEFF 		bl	Error_Handler
+ 205              	.LVL4:
+  23:App/Src/hw_uart.c **** 
+ 206              		.loc 1 23 1 is_stmt 0 view .LVU55
+ 207 002e FBE7     		b	.L6
+ 208              	.L11:
+ 209              		.align	2
+ 210              	.L10:
+ 211 0030 00000000 		.word	.LANCHOR0
+ 212 0034 00380140 		.word	1073821696
+ 213              		.cfi_endproc
+ 214              	.LFE111:
+ 216              		.section	.text.HW_UART_IoDeInit,"ax",%progbits
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s 			page 6
+
+
+ 217              		.align	1
+ 218              		.global	HW_UART_IoDeInit
+ 219              		.syntax unified
+ 220              		.thumb
+ 221              		.thumb_func
+ 222              		.fpu softvfp
+ 224              	HW_UART_IoDeInit:
+ 225              	.LFB114:
+  52:App/Src/hw_uart.c **** 
+  53:App/Src/hw_uart.c **** void HW_UART_IoDeInit(void)
+  54:App/Src/hw_uart.c **** {
+ 226              		.loc 1 54 1 is_stmt 1 view -0
+ 227              		.cfi_startproc
+ 228              		@ args = 0, pretend = 0, frame = 0
+ 229              		@ frame_needed = 0, uses_anonymous_args = 0
+ 230 0000 08B5     		push	{r3, lr}
+ 231              	.LCFI4:
+ 232              		.cfi_def_cfa_offset 8
+ 233              		.cfi_offset 3, -8
+ 234              		.cfi_offset 14, -4
+  55:App/Src/hw_uart.c ****      /* Peripheral clock disable */
+  56:App/Src/hw_uart.c ****     __HAL_RCC_USART1_CLK_DISABLE();
+ 235              		.loc 1 56 5 view .LVU57
+ 236 0002 054A     		ldr	r2, .L14
+ 237 0004 9369     		ldr	r3, [r2, #24]
+ 238 0006 23F48043 		bic	r3, r3, #16384
+ 239 000a 9361     		str	r3, [r2, #24]
+  57:App/Src/hw_uart.c **** 
+  58:App/Src/hw_uart.c ****     /**USART1 GPIO Configuration    
+  59:App/Src/hw_uart.c ****     PA9     ------> USART1_TX
+  60:App/Src/hw_uart.c ****     PA10     ------> USART1_RX 
+  61:App/Src/hw_uart.c ****     */
+  62:App/Src/hw_uart.c ****     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9 | GPIO_PIN_10);
+ 240              		.loc 1 62 5 view .LVU58
+ 241 000c 4FF4C061 		mov	r1, #1536
+ 242 0010 0248     		ldr	r0, .L14+4
+ 243 0012 FFF7FEFF 		bl	HAL_GPIO_DeInit
+ 244              	.LVL5:
+  63:App/Src/hw_uart.c **** }
+ 245              		.loc 1 63 1 is_stmt 0 view .LVU59
+ 246 0016 08BD     		pop	{r3, pc}
+ 247              	.L15:
+ 248              		.align	2
+ 249              	.L14:
+ 250 0018 00100240 		.word	1073876992
+ 251 001c 00080140 		.word	1073809408
+ 252              		.cfi_endproc
+ 253              	.LFE114:
+ 255              		.section	.text.vprint,"ax",%progbits
+ 256              		.align	1
+ 257              		.global	vprint
+ 258              		.syntax unified
+ 259              		.thumb
+ 260              		.thumb_func
+ 261              		.fpu softvfp
+ 263              	vprint:
+ 264              	.LVL6:
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s 			page 7
+
+
+ 265              	.LFB115:
+  64:App/Src/hw_uart.c **** 
+  65:App/Src/hw_uart.c **** void vprint(const char *fmt, va_list argp)
+  66:App/Src/hw_uart.c **** {
+ 266              		.loc 1 66 1 is_stmt 1 view -0
+ 267              		.cfi_startproc
+ 268              		@ args = 0, pretend = 0, frame = 200
+ 269              		@ frame_needed = 0, uses_anonymous_args = 0
+ 270              		.loc 1 66 1 is_stmt 0 view .LVU61
+ 271 0000 00B5     		push	{lr}
+ 272              	.LCFI5:
+ 273              		.cfi_def_cfa_offset 4
+ 274              		.cfi_offset 14, -4
+ 275 0002 B3B0     		sub	sp, sp, #204
+ 276              	.LCFI6:
+ 277              		.cfi_def_cfa_offset 208
+ 278 0004 0A46     		mov	r2, r1
+  67:App/Src/hw_uart.c ****     char string[200];
+ 279              		.loc 1 67 5 is_stmt 1 view .LVU62
+  68:App/Src/hw_uart.c ****     if(0 < vsprintf(string,fmt,argp)) // build string
+ 280              		.loc 1 68 5 view .LVU63
+ 281              		.loc 1 68 12 is_stmt 0 view .LVU64
+ 282 0006 0146     		mov	r1, r0
+ 283              	.LVL7:
+ 284              		.loc 1 68 12 view .LVU65
+ 285 0008 6846     		mov	r0, sp
+ 286              	.LVL8:
+ 287              		.loc 1 68 12 view .LVU66
+ 288 000a FFF7FEFF 		bl	vsprintf
+ 289              	.LVL9:
+ 290              		.loc 1 68 7 view .LVU67
+ 291 000e 0028     		cmp	r0, #0
+ 292 0010 02DC     		bgt	.L19
+ 293              	.L16:
+  69:App/Src/hw_uart.c ****     {
+  70:App/Src/hw_uart.c ****         HAL_UART_Transmit(&huart, (uint8_t*)string, strlen(string), 0xffffff); // send message via 
+  71:App/Src/hw_uart.c ****     }
+  72:App/Src/hw_uart.c **** }
+ 294              		.loc 1 72 1 view .LVU68
+ 295 0012 33B0     		add	sp, sp, #204
+ 296              	.LCFI7:
+ 297              		.cfi_remember_state
+ 298              		.cfi_def_cfa_offset 4
+ 299              		@ sp needed
+ 300 0014 5DF804FB 		ldr	pc, [sp], #4
+ 301              	.L19:
+ 302              	.LCFI8:
+ 303              		.cfi_restore_state
+  70:App/Src/hw_uart.c ****     }
+ 304              		.loc 1 70 9 is_stmt 1 view .LVU69
+  70:App/Src/hw_uart.c ****     }
+ 305              		.loc 1 70 53 is_stmt 0 view .LVU70
+ 306 0018 6846     		mov	r0, sp
+ 307 001a FFF7FEFF 		bl	strlen
+ 308              	.LVL10:
+  70:App/Src/hw_uart.c ****     }
+ 309              		.loc 1 70 9 view .LVU71
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s 			page 8
+
+
+ 310 001e 6FF07F43 		mvn	r3, #-16777216
+ 311 0022 82B2     		uxth	r2, r0
+ 312 0024 6946     		mov	r1, sp
+ 313 0026 0248     		ldr	r0, .L20
+ 314 0028 FFF7FEFF 		bl	HAL_UART_Transmit
+ 315              	.LVL11:
+ 316              		.loc 1 72 1 view .LVU72
+ 317 002c F1E7     		b	.L16
+ 318              	.L21:
+ 319 002e 00BF     		.align	2
+ 320              	.L20:
+ 321 0030 00000000 		.word	.LANCHOR0
+ 322              		.cfi_endproc
+ 323              	.LFE115:
+ 325              		.section	.text.HW_UART_PRINTF,"ax",%progbits
+ 326              		.align	1
+ 327              		.global	HW_UART_PRINTF
+ 328              		.syntax unified
+ 329              		.thumb
+ 330              		.thumb_func
+ 331              		.fpu softvfp
+ 333              	HW_UART_PRINTF:
+ 334              	.LVL12:
+ 335              	.LFB116:
+  73:App/Src/hw_uart.c **** 
+  74:App/Src/hw_uart.c **** void HW_UART_PRINTF(const char *fmt, ...) // custom printf() function
+  75:App/Src/hw_uart.c **** {
+ 336              		.loc 1 75 1 is_stmt 1 view -0
+ 337              		.cfi_startproc
+ 338              		@ args = 4, pretend = 16, frame = 8
+ 339              		@ frame_needed = 0, uses_anonymous_args = 1
+ 340              		.loc 1 75 1 is_stmt 0 view .LVU74
+ 341 0000 0FB4     		push	{r0, r1, r2, r3}
+ 342              	.LCFI9:
+ 343              		.cfi_def_cfa_offset 16
+ 344              		.cfi_offset 0, -16
+ 345              		.cfi_offset 1, -12
+ 346              		.cfi_offset 2, -8
+ 347              		.cfi_offset 3, -4
+ 348 0002 00B5     		push	{lr}
+ 349              	.LCFI10:
+ 350              		.cfi_def_cfa_offset 20
+ 351              		.cfi_offset 14, -20
+ 352 0004 83B0     		sub	sp, sp, #12
+ 353              	.LCFI11:
+ 354              		.cfi_def_cfa_offset 32
+ 355 0006 04A9     		add	r1, sp, #16
+ 356 0008 51F8040B 		ldr	r0, [r1], #4
+  76:App/Src/hw_uart.c ****     va_list argp;
+ 357              		.loc 1 76 5 is_stmt 1 view .LVU75
+  77:App/Src/hw_uart.c ****     va_start(argp, fmt);
+ 358              		.loc 1 77 5 view .LVU76
+ 359 000c 0191     		str	r1, [sp, #4]
+  78:App/Src/hw_uart.c ****     vprint(fmt, argp);
+ 360              		.loc 1 78 5 view .LVU77
+ 361 000e FFF7FEFF 		bl	vprint
+ 362              	.LVL13:
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s 			page 9
+
+
+  79:App/Src/hw_uart.c ****     va_end(argp);
+ 363              		.loc 1 79 5 view .LVU78
+  80:App/Src/hw_uart.c **** }...
+ 364              		.loc 1 80 1 is_stmt 0 view .LVU79
+ 365 0012 03B0     		add	sp, sp, #12
+ 366              	.LCFI12:
+ 367              		.cfi_def_cfa_offset 20
+ 368              		@ sp needed
+ 369 0014 5DF804EB 		ldr	lr, [sp], #4
+ 370              	.LCFI13:
+ 371              		.cfi_restore 14
+ 372              		.cfi_def_cfa_offset 16
+ 373 0018 04B0     		add	sp, sp, #16
+ 374              	.LCFI14:
+ 375              		.cfi_restore 3
+ 376              		.cfi_restore 2
+ 377              		.cfi_restore 1
+ 378              		.cfi_restore 0
+ 379              		.cfi_def_cfa_offset 0
+ 380 001a 7047     		bx	lr
+ 381              		.cfi_endproc
+ 382              	.LFE116:
+ 384              		.section	.bss.huart,"aw",%nobits
+ 385              		.align	2
+ 386              		.set	.LANCHOR0,. + 0
+ 389              	huart:
+ 390 0000 00000000 		.space	64
+ 390      00000000 
+ 390      00000000 
+ 390      00000000 
+ 390      00000000 
+ 391              		.text
+ 392              	.Letext0:
+ 393              		.file 2 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 394              		.file 3 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\lock.h"
+ 395              		.file 4 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_types.h"
+ 396              		.file 5 "c:\\vsarm\\armcc\\lib\\gcc\\arm-none-eabi\\9.2.1\\include\\stddef.h"
+ 397              		.file 6 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\reent.h"
+ 398              		.file 7 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\math.h"
+ 399              		.file 8 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 400              		.file 9 "Drivers/CMSIS/Include/core_cm3.h"
+ 401              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 402              		.file 11 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 403              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 404              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 405              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 406              		.file 15 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 407              		.file 16 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 408              		.file 17 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 409              		.file 18 "App/Inc/hw_i2c.h"
+ 410              		.file 19 "c:\\vsarm\\armcc\\lib\\gcc\\arm-none-eabi\\9.2.1\\include\\stdarg.h"
+ 411              		.file 20 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\stdio.h"
+ 412              		.file 21 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\string.h"
+ 413              		.file 22 "App/Inc/hw_msp.h"
+ 414              		.file 23 "<built-in>"
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s 			page 10
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 hw_uart.c
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:16     .text.HW_UART_DeInit:00000000 $t
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:24     .text.HW_UART_DeInit:00000000 HW_UART_DeInit
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:38     .text.HW_UART_IoInit:00000000 $t
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:45     .text.HW_UART_IoInit:00000000 HW_UART_IoInit
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:137    .text.HW_UART_IoInit:0000005c $d
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:143    .text.HW_UART_Init:00000000 $t
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:150    .text.HW_UART_Init:00000000 HW_UART_Init
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:211    .text.HW_UART_Init:00000030 $d
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:217    .text.HW_UART_IoDeInit:00000000 $t
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:224    .text.HW_UART_IoDeInit:00000000 HW_UART_IoDeInit
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:250    .text.HW_UART_IoDeInit:00000018 $d
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:256    .text.vprint:00000000 $t
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:263    .text.vprint:00000000 vprint
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:321    .text.vprint:00000030 $d
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:326    .text.HW_UART_PRINTF:00000000 $t
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:333    .text.HW_UART_PRINTF:00000000 HW_UART_PRINTF
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:385    .bss.huart:00000000 $d
+C:\Users\jsauerer\AppData\Local\Temp\cc1DGMSg.s:389    .bss.huart:00000000 huart
+
+UNDEFINED SYMBOLS
+HAL_GPIO_Init
+HAL_UART_Init
+Error_Handler
+HAL_GPIO_DeInit
+vsprintf
+strlen
+HAL_UART_Transmit

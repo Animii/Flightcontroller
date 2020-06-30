@@ -1,0 +1,70 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+        {
+            "name": "(gdb) Starten",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/nativ/nativ.exe",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "C:/VSARM/mingw/mingw32/bin/gdb.exe",
+            "setupCommands": [
+                {
+                    "description": "Automatische Strukturierung und Einrückung für \"gdb\" aktivieren",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": false
+                }
+            ]
+        },
+        {
+            "cwd": "${workspaceRoot}",
+            "executable": "./build/FlightController.elf",
+            "name": "Debug Microcontroller",
+            "request": "launch",
+            "type": "cortex-debug",
+            "servertype": "openocd",
+            "svdFile": "${workspaceRoot}/STM32L0x2.svd",
+            "runToMain": true,
+            "preRestartCommands":   [
+                "add-symbol-file ./build/FlightController.elf 0x08000000",
+                "enable breakpoint",
+                "monitor reset"
+            ],
+            "configFiles": [
+                "interface/stlink.cfg",
+                "target/stm32f1x.cfg"
+            ]
+        },
+        {
+        "type": "cortex-debug",
+        "request": "launch",
+        "servertype": "stutil",
+        "cwd": "${workspaceRoot}",
+        "executable": "./build/FlightController.elf",
+        "name": "Debug (ST-Util)",
+        "device": "STM32L072CZ",
+        "postLaunchCommands": [
+            "SoftwareReset"
+        ],
+        "v1": false,
+        "svdFile": "${workspaceRoot}/STM32L0x2.svd",
+        "runToMain": true,
+        "preLaunchCommands":   [
+                                    "enable breakpoint",
+                                    "SoftwareReset"
+                                ]
+         }
+         
+         
+    ]
+}
+   

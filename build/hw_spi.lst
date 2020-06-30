@@ -1,0 +1,654 @@
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s 			page 1
+
+
+   1              		.cpu cortex-m3
+   2              		.eabi_attribute 20, 1
+   3              		.eabi_attribute 21, 1
+   4              		.eabi_attribute 23, 3
+   5              		.eabi_attribute 24, 1
+   6              		.eabi_attribute 25, 1
+   7              		.eabi_attribute 26, 1
+   8              		.eabi_attribute 30, 1
+   9              		.eabi_attribute 34, 1
+  10              		.eabi_attribute 18, 4
+  11              		.file	"hw_spi.c"
+  12              		.text
+  13              	.Ltext0:
+  14              		.cfi_sections	.debug_frame
+  15              		.section	.text.HW_SPI_IoInit,"ax",%progbits
+  16              		.align	1
+  17              		.global	HW_SPI_IoInit
+  18              		.arch armv7-m
+  19              		.syntax unified
+  20              		.thumb
+  21              		.thumb_func
+  22              		.fpu softvfp
+  24              	HW_SPI_IoInit:
+  25              	.LFB113:
+  26              		.file 1 "App/Src/hw_spi.c"
+   1:App/Src/hw_spi.c **** /*
+   2:App/Src/hw_spi.c ****  / _____)             _              | |
+   3:App/Src/hw_spi.c **** ( (____  _____ ____ _| |_ _____  ____| |__
+   4:App/Src/hw_spi.c ****  \____ \| ___ |    (_   _) ___ |/ ___)  _ \
+   5:App/Src/hw_spi.c ****  _____) ) ____| | | || |_| ____( (___| | | |
+   6:App/Src/hw_spi.c **** (______/|_____)_|_|_| \__)_____)\____)_| |_|
+   7:App/Src/hw_spi.c ****     (C)2013 Semtech
+   8:App/Src/hw_spi.c **** 
+   9:App/Src/hw_spi.c **** Description: Bleeper board SPI driver implementation
+  10:App/Src/hw_spi.c **** 
+  11:App/Src/hw_spi.c **** License: Revised BSD License, see LICENSE.TXT file include in the project
+  12:App/Src/hw_spi.c **** 
+  13:App/Src/hw_spi.c **** Maintainer: Miguel Luis and Gregory Cristian
+  14:App/Src/hw_spi.c **** */
+  15:App/Src/hw_spi.c **** /**
+  16:App/Src/hw_spi.c ****   ******************************************************************************
+  17:App/Src/hw_spi.c ****   * @file    hw_spi.c
+  18:App/Src/hw_spi.c ****   * @author  MCD Application Team
+  19:App/Src/hw_spi.c ****   * @brief   manages the SPI interface
+  20:App/Src/hw_spi.c ****   ******************************************************************************
+  21:App/Src/hw_spi.c ****   * @attention
+  22:App/Src/hw_spi.c ****   *
+  23:App/Src/hw_spi.c ****   * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
+  24:App/Src/hw_spi.c ****   * All rights reserved.</center></h2>
+  25:App/Src/hw_spi.c ****   *
+  26:App/Src/hw_spi.c ****   * This software component is licensed by ST under Ultimate Liberty license
+  27:App/Src/hw_spi.c ****   * SLA0044, the "License"; You may not use this file except in compliance with
+  28:App/Src/hw_spi.c ****   * the License. You may obtain a copy of the License at:
+  29:App/Src/hw_spi.c ****   *                             www.st.com/SLA0044
+  30:App/Src/hw_spi.c ****   *
+  31:App/Src/hw_spi.c ****   ******************************************************************************
+  32:App/Src/hw_spi.c ****   */
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s 			page 2
+
+
+  33:App/Src/hw_spi.c **** 
+  34:App/Src/hw_spi.c **** /* Includes ------------------------------------------------------------------*/
+  35:App/Src/hw_spi.c **** #include "hw.h"
+  36:App/Src/hw_spi.c **** /* Private typedef -----------------------------------------------------------*/
+  37:App/Src/hw_spi.c **** /* Private define ------------------------------------------------------------*/
+  38:App/Src/hw_spi.c **** /* Private macro -------------------------------------------------------------*/
+  39:App/Src/hw_spi.c **** /* Private variables ---------------------------------------------------------*/
+  40:App/Src/hw_spi.c **** static SPI_HandleTypeDef hspi;
+  41:App/Src/hw_spi.c **** /* Private function prototypes -----------------------------------------------*/
+  42:App/Src/hw_spi.c **** /* Exported functions ---------------------------------------------------------*/
+  43:App/Src/hw_spi.c **** 
+  44:App/Src/hw_spi.c **** /*!
+  45:App/Src/hw_spi.c ****  * @brief Initializes the SPI object and MCU peripheral
+  46:App/Src/hw_spi.c ****  *
+  47:App/Src/hw_spi.c ****  * @param [IN] none
+  48:App/Src/hw_spi.c ****  */
+  49:App/Src/hw_spi.c **** void HW_SPI_Init(void)
+  50:App/Src/hw_spi.c **** {
+  51:App/Src/hw_spi.c **** 
+  52:App/Src/hw_spi.c ****     /*##-1- Configure the SPI peripheral */
+  53:App/Src/hw_spi.c ****     /* Set the SPI parameters */
+  54:App/Src/hw_spi.c ****  
+  55:App/Src/hw_spi.c ****     hspi.Instance = SPI1;
+  56:App/Src/hw_spi.c **** 
+  57:App/Src/hw_spi.c ****     hspi.Instance = SPI1;
+  58:App/Src/hw_spi.c ****     hspi.Init.Mode = SPI_MODE_MASTER;
+  59:App/Src/hw_spi.c ****     hspi.Init.Direction = SPI_DIRECTION_2LINES;
+  60:App/Src/hw_spi.c ****     hspi.Init.DataSize = SPI_DATASIZE_8BIT;
+  61:App/Src/hw_spi.c ****     hspi.Init.CLKPolarity = SPI_POLARITY_LOW;
+  62:App/Src/hw_spi.c ****     hspi.Init.CLKPhase = SPI_PHASE_1EDGE;
+  63:App/Src/hw_spi.c ****     hspi.Init.NSS = SPI_NSS_SOFT;
+  64:App/Src/hw_spi.c ****     hspi.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+  65:App/Src/hw_spi.c ****     hspi.Init.FirstBit = SPI_FIRSTBIT_MSB;
+  66:App/Src/hw_spi.c ****     hspi.Init.TIMode = SPI_TIMODE_DISABLE;
+  67:App/Src/hw_spi.c ****     hspi.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+  68:App/Src/hw_spi.c ****     hspi.Init.CRCPolynomial = 10;
+  69:App/Src/hw_spi.c **** 
+  70:App/Src/hw_spi.c ****     __HAL_RCC_SPI1_CLK_ENABLE();
+  71:App/Src/hw_spi.c **** 
+  72:App/Src/hw_spi.c ****     if (HAL_SPI_Init(&hspi) != HAL_OK)
+  73:App/Src/hw_spi.c ****     {
+  74:App/Src/hw_spi.c ****         /* Initialization Error */
+  75:App/Src/hw_spi.c ****         Error_Handler();
+  76:App/Src/hw_spi.c ****     }
+  77:App/Src/hw_spi.c **** 
+  78:App/Src/hw_spi.c ****     /*##-2- Configure the SPI GPIOs */
+  79:App/Src/hw_spi.c ****     HW_SPI_IoInit();
+  80:App/Src/hw_spi.c **** }
+  81:App/Src/hw_spi.c **** 
+  82:App/Src/hw_spi.c **** /*!
+  83:App/Src/hw_spi.c ****  * @brief De-initializes the SPI object and MCU peripheral
+  84:App/Src/hw_spi.c ****  *
+  85:App/Src/hw_spi.c ****  * @param [IN] none
+  86:App/Src/hw_spi.c ****  */
+  87:App/Src/hw_spi.c **** void HW_SPI_DeInit(void)
+  88:App/Src/hw_spi.c **** {
+  89:App/Src/hw_spi.c **** 
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s 			page 3
+
+
+  90:App/Src/hw_spi.c ****     HAL_SPI_DeInit(&hspi);
+  91:App/Src/hw_spi.c **** 
+  92:App/Src/hw_spi.c ****     /*##-1- Reset peripherals ####*/
+  93:App/Src/hw_spi.c ****     __HAL_RCC_SPI1_FORCE_RESET();
+  94:App/Src/hw_spi.c ****     __HAL_RCC_SPI1_RELEASE_RESET();
+  95:App/Src/hw_spi.c ****     /*##-2- Configure the SPI GPIOs */
+  96:App/Src/hw_spi.c ****     HW_SPI_IoDeInit();
+  97:App/Src/hw_spi.c **** }
+  98:App/Src/hw_spi.c **** 
+  99:App/Src/hw_spi.c **** void HW_SPI_IoInit(void)
+ 100:App/Src/hw_spi.c **** {
+  27              		.loc 1 100 1 view -0
+  28              		.cfi_startproc
+  29              		@ args = 0, pretend = 0, frame = 24
+  30              		@ frame_needed = 0, uses_anonymous_args = 0
+  31 0000 30B5     		push	{r4, r5, lr}
+  32              	.LCFI0:
+  33              		.cfi_def_cfa_offset 12
+  34              		.cfi_offset 4, -12
+  35              		.cfi_offset 5, -8
+  36              		.cfi_offset 14, -4
+  37 0002 87B0     		sub	sp, sp, #28
+  38              	.LCFI1:
+  39              		.cfi_def_cfa_offset 40
+ 101:App/Src/hw_spi.c ****     GPIO_InitTypeDef initStruct = {0};
+  40              		.loc 1 101 5 view .LVU1
+  41              		.loc 1 101 22 is_stmt 0 view .LVU2
+  42 0004 0024     		movs	r4, #0
+  43 0006 0494     		str	r4, [sp, #16]
+ 102:App/Src/hw_spi.c **** 
+ 103:App/Src/hw_spi.c ****     __HAL_RCC_SPI1_CLK_ENABLE();
+  44              		.loc 1 103 5 is_stmt 1 view .LVU3
+  45              	.LBB2:
+  46              		.loc 1 103 5 view .LVU4
+  47              		.loc 1 103 5 view .LVU5
+  48 0008 134B     		ldr	r3, .L3
+  49 000a 9A69     		ldr	r2, [r3, #24]
+  50 000c 42F48052 		orr	r2, r2, #4096
+  51 0010 9A61     		str	r2, [r3, #24]
+  52              		.loc 1 103 5 view .LVU6
+  53 0012 9A69     		ldr	r2, [r3, #24]
+  54 0014 02F48052 		and	r2, r2, #4096
+  55 0018 0092     		str	r2, [sp]
+  56              		.loc 1 103 5 view .LVU7
+  57 001a 009A     		ldr	r2, [sp]
+  58              	.LBE2:
+  59              		.loc 1 103 5 view .LVU8
+ 104:App/Src/hw_spi.c **** 
+ 105:App/Src/hw_spi.c ****     __HAL_RCC_GPIOA_CLK_ENABLE();
+  60              		.loc 1 105 5 view .LVU9
+  61              	.LBB3:
+  62              		.loc 1 105 5 view .LVU10
+  63              		.loc 1 105 5 view .LVU11
+  64 001c 9A69     		ldr	r2, [r3, #24]
+  65 001e 42F00402 		orr	r2, r2, #4
+  66 0022 9A61     		str	r2, [r3, #24]
+  67              		.loc 1 105 5 view .LVU12
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s 			page 4
+
+
+  68 0024 9B69     		ldr	r3, [r3, #24]
+  69 0026 03F00403 		and	r3, r3, #4
+  70 002a 0193     		str	r3, [sp, #4]
+  71              		.loc 1 105 5 view .LVU13
+  72 002c 019B     		ldr	r3, [sp, #4]
+  73              	.LBE3:
+  74              		.loc 1 105 5 view .LVU14
+ 106:App/Src/hw_spi.c ****     /**SPI1 GPIO Configuration    
+ 107:App/Src/hw_spi.c ****     PA5     ------> SPI1_SCK
+ 108:App/Src/hw_spi.c ****     PA6     ------> SPI1_MISO
+ 109:App/Src/hw_spi.c ****     PA7     ------> SPI1_MOSI 
+ 110:App/Src/hw_spi.c ****     */
+ 111:App/Src/hw_spi.c ****     initStruct.Pin = GPIO_PIN_5 | GPIO_PIN_7;
+  75              		.loc 1 111 5 view .LVU15
+  76              		.loc 1 111 20 is_stmt 0 view .LVU16
+  77 002e A023     		movs	r3, #160
+  78 0030 0293     		str	r3, [sp, #8]
+ 112:App/Src/hw_spi.c ****     initStruct.Mode = GPIO_MODE_AF_PP;
+  79              		.loc 1 112 5 is_stmt 1 view .LVU17
+  80              		.loc 1 112 21 is_stmt 0 view .LVU18
+  81 0032 0223     		movs	r3, #2
+  82 0034 0393     		str	r3, [sp, #12]
+ 113:App/Src/hw_spi.c ****     initStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  83              		.loc 1 113 5 is_stmt 1 view .LVU19
+  84              		.loc 1 113 22 is_stmt 0 view .LVU20
+  85 0036 0323     		movs	r3, #3
+  86 0038 0593     		str	r3, [sp, #20]
+ 114:App/Src/hw_spi.c ****     HAL_GPIO_Init(GPIOA, &initStruct);
+  87              		.loc 1 114 5 is_stmt 1 view .LVU21
+  88 003a 084D     		ldr	r5, .L3+4
+  89 003c 02A9     		add	r1, sp, #8
+  90 003e 2846     		mov	r0, r5
+  91 0040 FFF7FEFF 		bl	HAL_GPIO_Init
+  92              	.LVL0:
+ 115:App/Src/hw_spi.c **** 
+ 116:App/Src/hw_spi.c ****     initStruct.Pin = GPIO_PIN_6;
+  93              		.loc 1 116 5 view .LVU22
+  94              		.loc 1 116 20 is_stmt 0 view .LVU23
+  95 0044 4023     		movs	r3, #64
+  96 0046 0293     		str	r3, [sp, #8]
+ 117:App/Src/hw_spi.c ****     initStruct.Mode = GPIO_MODE_INPUT;
+  97              		.loc 1 117 5 is_stmt 1 view .LVU24
+  98              		.loc 1 117 21 is_stmt 0 view .LVU25
+  99 0048 0394     		str	r4, [sp, #12]
+ 118:App/Src/hw_spi.c ****     initStruct.Pull = GPIO_NOPULL;
+ 100              		.loc 1 118 5 is_stmt 1 view .LVU26
+ 101              		.loc 1 118 21 is_stmt 0 view .LVU27
+ 102 004a 0494     		str	r4, [sp, #16]
+ 119:App/Src/hw_spi.c ****     HAL_GPIO_Init(GPIOA, &initStruct);
+ 103              		.loc 1 119 5 is_stmt 1 view .LVU28
+ 104 004c 02A9     		add	r1, sp, #8
+ 105 004e 2846     		mov	r0, r5
+ 106 0050 FFF7FEFF 		bl	HAL_GPIO_Init
+ 107              	.LVL1:
+ 120:App/Src/hw_spi.c ****     /*
+ 121:App/Src/hw_spi.c ****   initStruct.Mode = GPIO_MODE_OUTPUT_PP;
+ 122:App/Src/hw_spi.c ****   initStruct.Pull = GPIO_NOPULL;
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s 			page 5
+
+
+ 123:App/Src/hw_spi.c **** 
+ 124:App/Src/hw_spi.c ****   HW_GPIO_Init(RADIO_NSS_PORT, RADIO_NSS_PIN, &initStruct);
+ 125:App/Src/hw_spi.c **** 
+ 126:App/Src/hw_spi.c ****   HW_GPIO_Write(RADIO_NSS_PORT, RADIO_NSS_PIN, 1);
+ 127:App/Src/hw_spi.c ****   */
+ 128:App/Src/hw_spi.c **** }
+ 108              		.loc 1 128 1 is_stmt 0 view .LVU29
+ 109 0054 07B0     		add	sp, sp, #28
+ 110              	.LCFI2:
+ 111              		.cfi_def_cfa_offset 12
+ 112              		@ sp needed
+ 113 0056 30BD     		pop	{r4, r5, pc}
+ 114              	.L4:
+ 115              		.align	2
+ 116              	.L3:
+ 117 0058 00100240 		.word	1073876992
+ 118 005c 00080140 		.word	1073809408
+ 119              		.cfi_endproc
+ 120              	.LFE113:
+ 122              		.section	.text.HW_SPI_Init,"ax",%progbits
+ 123              		.align	1
+ 124              		.global	HW_SPI_Init
+ 125              		.syntax unified
+ 126              		.thumb
+ 127              		.thumb_func
+ 128              		.fpu softvfp
+ 130              	HW_SPI_Init:
+ 131              	.LFB111:
+  50:App/Src/hw_spi.c **** 
+ 132              		.loc 1 50 1 is_stmt 1 view -0
+ 133              		.cfi_startproc
+ 134              		@ args = 0, pretend = 0, frame = 8
+ 135              		@ frame_needed = 0, uses_anonymous_args = 0
+ 136 0000 00B5     		push	{lr}
+ 137              	.LCFI3:
+ 138              		.cfi_def_cfa_offset 4
+ 139              		.cfi_offset 14, -4
+ 140 0002 83B0     		sub	sp, sp, #12
+ 141              	.LCFI4:
+ 142              		.cfi_def_cfa_offset 16
+  55:App/Src/hw_spi.c **** 
+ 143              		.loc 1 55 5 view .LVU31
+  55:App/Src/hw_spi.c **** 
+ 144              		.loc 1 55 19 is_stmt 0 view .LVU32
+ 145 0004 1448     		ldr	r0, .L9
+ 146 0006 154B     		ldr	r3, .L9+4
+ 147 0008 0360     		str	r3, [r0]
+  57:App/Src/hw_spi.c ****     hspi.Init.Mode = SPI_MODE_MASTER;
+ 148              		.loc 1 57 5 is_stmt 1 view .LVU33
+  58:App/Src/hw_spi.c ****     hspi.Init.Direction = SPI_DIRECTION_2LINES;
+ 149              		.loc 1 58 5 view .LVU34
+  58:App/Src/hw_spi.c ****     hspi.Init.Direction = SPI_DIRECTION_2LINES;
+ 150              		.loc 1 58 20 is_stmt 0 view .LVU35
+ 151 000a 4FF48273 		mov	r3, #260
+ 152 000e 4360     		str	r3, [r0, #4]
+  59:App/Src/hw_spi.c ****     hspi.Init.DataSize = SPI_DATASIZE_8BIT;
+ 153              		.loc 1 59 5 is_stmt 1 view .LVU36
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s 			page 6
+
+
+  59:App/Src/hw_spi.c ****     hspi.Init.DataSize = SPI_DATASIZE_8BIT;
+ 154              		.loc 1 59 25 is_stmt 0 view .LVU37
+ 155 0010 0023     		movs	r3, #0
+ 156 0012 8360     		str	r3, [r0, #8]
+  60:App/Src/hw_spi.c ****     hspi.Init.CLKPolarity = SPI_POLARITY_LOW;
+ 157              		.loc 1 60 5 is_stmt 1 view .LVU38
+  60:App/Src/hw_spi.c ****     hspi.Init.CLKPolarity = SPI_POLARITY_LOW;
+ 158              		.loc 1 60 24 is_stmt 0 view .LVU39
+ 159 0014 C360     		str	r3, [r0, #12]
+  61:App/Src/hw_spi.c ****     hspi.Init.CLKPhase = SPI_PHASE_1EDGE;
+ 160              		.loc 1 61 5 is_stmt 1 view .LVU40
+  61:App/Src/hw_spi.c ****     hspi.Init.CLKPhase = SPI_PHASE_1EDGE;
+ 161              		.loc 1 61 27 is_stmt 0 view .LVU41
+ 162 0016 0361     		str	r3, [r0, #16]
+  62:App/Src/hw_spi.c ****     hspi.Init.NSS = SPI_NSS_SOFT;
+ 163              		.loc 1 62 5 is_stmt 1 view .LVU42
+  62:App/Src/hw_spi.c ****     hspi.Init.NSS = SPI_NSS_SOFT;
+ 164              		.loc 1 62 24 is_stmt 0 view .LVU43
+ 165 0018 4361     		str	r3, [r0, #20]
+  63:App/Src/hw_spi.c ****     hspi.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+ 166              		.loc 1 63 5 is_stmt 1 view .LVU44
+  63:App/Src/hw_spi.c ****     hspi.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_8;
+ 167              		.loc 1 63 19 is_stmt 0 view .LVU45
+ 168 001a 4FF40072 		mov	r2, #512
+ 169 001e 8261     		str	r2, [r0, #24]
+  64:App/Src/hw_spi.c ****     hspi.Init.FirstBit = SPI_FIRSTBIT_MSB;
+ 170              		.loc 1 64 5 is_stmt 1 view .LVU46
+  64:App/Src/hw_spi.c ****     hspi.Init.FirstBit = SPI_FIRSTBIT_MSB;
+ 171              		.loc 1 64 33 is_stmt 0 view .LVU47
+ 172 0020 1022     		movs	r2, #16
+ 173 0022 C261     		str	r2, [r0, #28]
+  65:App/Src/hw_spi.c ****     hspi.Init.TIMode = SPI_TIMODE_DISABLE;
+ 174              		.loc 1 65 5 is_stmt 1 view .LVU48
+  65:App/Src/hw_spi.c ****     hspi.Init.TIMode = SPI_TIMODE_DISABLE;
+ 175              		.loc 1 65 24 is_stmt 0 view .LVU49
+ 176 0024 0362     		str	r3, [r0, #32]
+  66:App/Src/hw_spi.c ****     hspi.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+ 177              		.loc 1 66 5 is_stmt 1 view .LVU50
+  66:App/Src/hw_spi.c ****     hspi.Init.CRCCalculation = SPI_CRCCALCULATION_DISABLE;
+ 178              		.loc 1 66 22 is_stmt 0 view .LVU51
+ 179 0026 4362     		str	r3, [r0, #36]
+  67:App/Src/hw_spi.c ****     hspi.Init.CRCPolynomial = 10;
+ 180              		.loc 1 67 5 is_stmt 1 view .LVU52
+  67:App/Src/hw_spi.c ****     hspi.Init.CRCPolynomial = 10;
+ 181              		.loc 1 67 30 is_stmt 0 view .LVU53
+ 182 0028 8362     		str	r3, [r0, #40]
+  68:App/Src/hw_spi.c **** 
+ 183              		.loc 1 68 5 is_stmt 1 view .LVU54
+  68:App/Src/hw_spi.c **** 
+ 184              		.loc 1 68 29 is_stmt 0 view .LVU55
+ 185 002a 0A23     		movs	r3, #10
+ 186 002c C362     		str	r3, [r0, #44]
+  70:App/Src/hw_spi.c **** 
+ 187              		.loc 1 70 5 is_stmt 1 view .LVU56
+ 188              	.LBB4:
+  70:App/Src/hw_spi.c **** 
+ 189              		.loc 1 70 5 view .LVU57
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s 			page 7
+
+
+  70:App/Src/hw_spi.c **** 
+ 190              		.loc 1 70 5 view .LVU58
+ 191 002e 0C4B     		ldr	r3, .L9+8
+ 192 0030 9A69     		ldr	r2, [r3, #24]
+ 193 0032 42F48052 		orr	r2, r2, #4096
+ 194 0036 9A61     		str	r2, [r3, #24]
+  70:App/Src/hw_spi.c **** 
+ 195              		.loc 1 70 5 view .LVU59
+ 196 0038 9B69     		ldr	r3, [r3, #24]
+ 197 003a 03F48053 		and	r3, r3, #4096
+ 198 003e 0193     		str	r3, [sp, #4]
+  70:App/Src/hw_spi.c **** 
+ 199              		.loc 1 70 5 view .LVU60
+ 200 0040 019B     		ldr	r3, [sp, #4]
+ 201              	.LBE4:
+  70:App/Src/hw_spi.c **** 
+ 202              		.loc 1 70 5 view .LVU61
+  72:App/Src/hw_spi.c ****     {
+ 203              		.loc 1 72 5 view .LVU62
+  72:App/Src/hw_spi.c ****     {
+ 204              		.loc 1 72 9 is_stmt 0 view .LVU63
+ 205 0042 FFF7FEFF 		bl	HAL_SPI_Init
+ 206              	.LVL2:
+  72:App/Src/hw_spi.c ****     {
+ 207              		.loc 1 72 8 view .LVU64
+ 208 0046 20B9     		cbnz	r0, .L8
+ 209              	.L6:
+  79:App/Src/hw_spi.c **** }
+ 210              		.loc 1 79 5 is_stmt 1 view .LVU65
+ 211 0048 FFF7FEFF 		bl	HW_SPI_IoInit
+ 212              	.LVL3:
+  80:App/Src/hw_spi.c **** 
+ 213              		.loc 1 80 1 is_stmt 0 view .LVU66
+ 214 004c 03B0     		add	sp, sp, #12
+ 215              	.LCFI5:
+ 216              		.cfi_remember_state
+ 217              		.cfi_def_cfa_offset 4
+ 218              		@ sp needed
+ 219 004e 5DF804FB 		ldr	pc, [sp], #4
+ 220              	.L8:
+ 221              	.LCFI6:
+ 222              		.cfi_restore_state
+  75:App/Src/hw_spi.c ****     }
+ 223              		.loc 1 75 9 is_stmt 1 view .LVU67
+ 224 0052 FFF7FEFF 		bl	Error_Handler
+ 225              	.LVL4:
+ 226 0056 F7E7     		b	.L6
+ 227              	.L10:
+ 228              		.align	2
+ 229              	.L9:
+ 230 0058 00000000 		.word	.LANCHOR0
+ 231 005c 00300140 		.word	1073819648
+ 232 0060 00100240 		.word	1073876992
+ 233              		.cfi_endproc
+ 234              	.LFE111:
+ 236              		.section	.text.HW_SPI_IoDeInit,"ax",%progbits
+ 237              		.align	1
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s 			page 8
+
+
+ 238              		.global	HW_SPI_IoDeInit
+ 239              		.syntax unified
+ 240              		.thumb
+ 241              		.thumb_func
+ 242              		.fpu softvfp
+ 244              	HW_SPI_IoDeInit:
+ 245              	.LFB114:
+ 129:App/Src/hw_spi.c **** 
+ 130:App/Src/hw_spi.c **** void HW_SPI_IoDeInit(void)
+ 131:App/Src/hw_spi.c **** {
+ 246              		.loc 1 131 1 view -0
+ 247              		.cfi_startproc
+ 248              		@ args = 0, pretend = 0, frame = 0
+ 249              		@ frame_needed = 0, uses_anonymous_args = 0
+ 250 0000 08B5     		push	{r3, lr}
+ 251              	.LCFI7:
+ 252              		.cfi_def_cfa_offset 8
+ 253              		.cfi_offset 3, -8
+ 254              		.cfi_offset 14, -4
+ 132:App/Src/hw_spi.c ****     //GPIO_InitTypeDef initStruct = {0};
+ 133:App/Src/hw_spi.c **** 
+ 134:App/Src/hw_spi.c ****     /* Peripheral clock disable */
+ 135:App/Src/hw_spi.c ****     __HAL_RCC_SPI1_CLK_DISABLE();
+ 255              		.loc 1 135 5 view .LVU69
+ 256 0002 054A     		ldr	r2, .L13
+ 257 0004 9369     		ldr	r3, [r2, #24]
+ 258 0006 23F48053 		bic	r3, r3, #4096
+ 259 000a 9361     		str	r3, [r2, #24]
+ 136:App/Src/hw_spi.c **** 
+ 137:App/Src/hw_spi.c ****     /**SPI1 GPIO Configuration    
+ 138:App/Src/hw_spi.c ****     PA5     ------> SPI1_SCK
+ 139:App/Src/hw_spi.c ****     PA6     ------> SPI1_MISO
+ 140:App/Src/hw_spi.c ****     PA7     ------> SPI1_MOSI 
+ 141:App/Src/hw_spi.c ****     */
+ 142:App/Src/hw_spi.c ****     HAL_GPIO_DeInit(GPIOA, GPIO_PIN_5 | GPIO_PIN_6 | GPIO_PIN_7);
+ 260              		.loc 1 142 5 view .LVU70
+ 261 000c E021     		movs	r1, #224
+ 262 000e 0348     		ldr	r0, .L13+4
+ 263 0010 FFF7FEFF 		bl	HAL_GPIO_DeInit
+ 264              	.LVL5:
+ 143:App/Src/hw_spi.c **** }
+ 265              		.loc 1 143 1 is_stmt 0 view .LVU71
+ 266 0014 08BD     		pop	{r3, pc}
+ 267              	.L14:
+ 268 0016 00BF     		.align	2
+ 269              	.L13:
+ 270 0018 00100240 		.word	1073876992
+ 271 001c 00080140 		.word	1073809408
+ 272              		.cfi_endproc
+ 273              	.LFE114:
+ 275              		.section	.text.HW_SPI_DeInit,"ax",%progbits
+ 276              		.align	1
+ 277              		.global	HW_SPI_DeInit
+ 278              		.syntax unified
+ 279              		.thumb
+ 280              		.thumb_func
+ 281              		.fpu softvfp
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s 			page 9
+
+
+ 283              	HW_SPI_DeInit:
+ 284              	.LFB112:
+  88:App/Src/hw_spi.c **** 
+ 285              		.loc 1 88 1 is_stmt 1 view -0
+ 286              		.cfi_startproc
+ 287              		@ args = 0, pretend = 0, frame = 0
+ 288              		@ frame_needed = 0, uses_anonymous_args = 0
+ 289 0000 08B5     		push	{r3, lr}
+ 290              	.LCFI8:
+ 291              		.cfi_def_cfa_offset 8
+ 292              		.cfi_offset 3, -8
+ 293              		.cfi_offset 14, -4
+  90:App/Src/hw_spi.c **** 
+ 294              		.loc 1 90 5 view .LVU73
+ 295 0002 0748     		ldr	r0, .L17
+ 296 0004 FFF7FEFF 		bl	HAL_SPI_DeInit
+ 297              	.LVL6:
+  93:App/Src/hw_spi.c ****     __HAL_RCC_SPI1_RELEASE_RESET();
+ 298              		.loc 1 93 5 view .LVU74
+ 299 0008 064B     		ldr	r3, .L17+4
+ 300 000a DA68     		ldr	r2, [r3, #12]
+ 301 000c 42F48052 		orr	r2, r2, #4096
+ 302 0010 DA60     		str	r2, [r3, #12]
+  94:App/Src/hw_spi.c ****     /*##-2- Configure the SPI GPIOs */
+ 303              		.loc 1 94 5 view .LVU75
+ 304 0012 DA68     		ldr	r2, [r3, #12]
+ 305 0014 22F48052 		bic	r2, r2, #4096
+ 306 0018 DA60     		str	r2, [r3, #12]
+  96:App/Src/hw_spi.c **** }
+ 307              		.loc 1 96 5 view .LVU76
+ 308 001a FFF7FEFF 		bl	HW_SPI_IoDeInit
+ 309              	.LVL7:
+  97:App/Src/hw_spi.c **** 
+ 310              		.loc 1 97 1 is_stmt 0 view .LVU77
+ 311 001e 08BD     		pop	{r3, pc}
+ 312              	.L18:
+ 313              		.align	2
+ 314              	.L17:
+ 315 0020 00000000 		.word	.LANCHOR0
+ 316 0024 00100240 		.word	1073876992
+ 317              		.cfi_endproc
+ 318              	.LFE112:
+ 320              		.section	.text.HW_SPI_InOut,"ax",%progbits
+ 321              		.align	1
+ 322              		.global	HW_SPI_InOut
+ 323              		.syntax unified
+ 324              		.thumb
+ 325              		.thumb_func
+ 326              		.fpu softvfp
+ 328              	HW_SPI_InOut:
+ 329              	.LVL8:
+ 330              	.LFB115:
+ 144:App/Src/hw_spi.c **** 
+ 145:App/Src/hw_spi.c **** /*!
+ 146:App/Src/hw_spi.c ****  * @brief Sends outData and receives inData
+ 147:App/Src/hw_spi.c ****  *
+ 148:App/Src/hw_spi.c ****  * @param [IN] outData Byte to be sent
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s 			page 10
+
+
+ 149:App/Src/hw_spi.c ****  * @retval inData      Received byte.
+ 150:App/Src/hw_spi.c ****  */
+ 151:App/Src/hw_spi.c **** uint8_t HW_SPI_InOut(uint8_t txData)
+ 152:App/Src/hw_spi.c **** {
+ 331              		.loc 1 152 1 is_stmt 1 view -0
+ 332              		.cfi_startproc
+ 333              		@ args = 0, pretend = 0, frame = 16
+ 334              		@ frame_needed = 0, uses_anonymous_args = 0
+ 335              		.loc 1 152 1 is_stmt 0 view .LVU79
+ 336 0000 00B5     		push	{lr}
+ 337              	.LCFI9:
+ 338              		.cfi_def_cfa_offset 4
+ 339              		.cfi_offset 14, -4
+ 340 0002 87B0     		sub	sp, sp, #28
+ 341              	.LCFI10:
+ 342              		.cfi_def_cfa_offset 32
+ 343 0004 8DF80F00 		strb	r0, [sp, #15]
+ 153:App/Src/hw_spi.c ****     uint8_t rxData;
+ 344              		.loc 1 153 5 is_stmt 1 view .LVU80
+ 154:App/Src/hw_spi.c **** 
+ 155:App/Src/hw_spi.c ****     HAL_SPI_TransmitReceive(&hspi, (uint8_t *)&txData, (uint8_t *)&rxData, 1, HAL_MAX_DELAY);
+ 345              		.loc 1 155 5 view .LVU81
+ 346 0008 4FF0FF33 		mov	r3, #-1
+ 347 000c 0093     		str	r3, [sp]
+ 348 000e 0123     		movs	r3, #1
+ 349 0010 0DF11702 		add	r2, sp, #23
+ 350 0014 0DF10F01 		add	r1, sp, #15
+ 351 0018 0348     		ldr	r0, .L21
+ 352              	.LVL9:
+ 353              		.loc 1 155 5 is_stmt 0 view .LVU82
+ 354 001a FFF7FEFF 		bl	HAL_SPI_TransmitReceive
+ 355              	.LVL10:
+ 156:App/Src/hw_spi.c **** 
+ 157:App/Src/hw_spi.c ****     return rxData;
+ 356              		.loc 1 157 5 is_stmt 1 view .LVU83
+ 158:App/Src/hw_spi.c **** }
+ 357              		.loc 1 158 1 is_stmt 0 view .LVU84
+ 358 001e 9DF81700 		ldrb	r0, [sp, #23]	@ zero_extendqisi2
+ 359 0022 07B0     		add	sp, sp, #28
+ 360              	.LCFI11:
+ 361              		.cfi_def_cfa_offset 4
+ 362              		@ sp needed
+ 363 0024 5DF804FB 		ldr	pc, [sp], #4
+ 364              	.L22:
+ 365              		.align	2
+ 366              	.L21:
+ 367 0028 00000000 		.word	.LANCHOR0
+ 368              		.cfi_endproc
+ 369              	.LFE115:
+ 371              		.section	.bss.hspi,"aw",%nobits
+ 372              		.align	2
+ 373              		.set	.LANCHOR0,. + 0
+ 376              	hspi:
+ 377 0000 00000000 		.space	88
+ 377      00000000 
+ 377      00000000 
+ 377      00000000 
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s 			page 11
+
+
+ 377      00000000 
+ 378              		.text
+ 379              	.Letext0:
+ 380              		.file 2 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 381              		.file 3 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\lock.h"
+ 382              		.file 4 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_types.h"
+ 383              		.file 5 "c:\\vsarm\\armcc\\lib\\gcc\\arm-none-eabi\\9.2.1\\include\\stddef.h"
+ 384              		.file 6 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\reent.h"
+ 385              		.file 7 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\math.h"
+ 386              		.file 8 "c:\\vsarm\\armcc\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 387              		.file 9 "Drivers/CMSIS/Include/core_cm3.h"
+ 388              		.file 10 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/system_stm32f1xx.h"
+ 389              		.file 11 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xb.h"
+ 390              		.file 12 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 391              		.file 13 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_gpio.h"
+ 392              		.file 14 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 393              		.file 15 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_i2c.h"
+ 394              		.file 16 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_spi.h"
+ 395              		.file 17 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h"
+ 396              		.file 18 "App/Inc/hw_i2c.h"
+ 397              		.file 19 "App/Inc/hw_msp.h"
+ARM GAS  C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s 			page 12
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 hw_spi.c
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:16     .text.HW_SPI_IoInit:00000000 $t
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:24     .text.HW_SPI_IoInit:00000000 HW_SPI_IoInit
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:117    .text.HW_SPI_IoInit:00000058 $d
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:123    .text.HW_SPI_Init:00000000 $t
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:130    .text.HW_SPI_Init:00000000 HW_SPI_Init
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:230    .text.HW_SPI_Init:00000058 $d
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:237    .text.HW_SPI_IoDeInit:00000000 $t
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:244    .text.HW_SPI_IoDeInit:00000000 HW_SPI_IoDeInit
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:270    .text.HW_SPI_IoDeInit:00000018 $d
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:276    .text.HW_SPI_DeInit:00000000 $t
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:283    .text.HW_SPI_DeInit:00000000 HW_SPI_DeInit
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:315    .text.HW_SPI_DeInit:00000020 $d
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:321    .text.HW_SPI_InOut:00000000 $t
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:328    .text.HW_SPI_InOut:00000000 HW_SPI_InOut
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:367    .text.HW_SPI_InOut:00000028 $d
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:372    .bss.hspi:00000000 $d
+C:\Users\jsauerer\AppData\Local\Temp\ccZLZ8pb.s:376    .bss.hspi:00000000 hspi
+
+UNDEFINED SYMBOLS
+HAL_GPIO_Init
+HAL_SPI_Init
+Error_Handler
+HAL_GPIO_DeInit
+HAL_SPI_DeInit
+HAL_SPI_TransmitReceive
