@@ -86,7 +86,6 @@ void HW_SPI_Init(void)
  */
 void HW_SPI_DeInit(void)
 {
-
     HAL_SPI_DeInit(&hspi);
 
     /*##-1- Reset peripherals ####*/

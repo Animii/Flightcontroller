@@ -16,8 +16,9 @@ void HW_Init(void)
   if (McuInitialized == false)
   {
     HW_TIMER_Init();
-    //HW_UART_Init();
-
+    
+    HW_UART_Init();
+   
     HW_SPI_Init();
 
     HW_I2C_Init();

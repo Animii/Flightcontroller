@@ -15,6 +15,18 @@ extern "C" {
 #define MPU_INT_MODE GPIO_MODE_IT_RISING
 #define MPU_INT_PULL GPIO_NOPULL
 
+#define UART_TX_PIN GPIO_PIN_6
+#define UART_TX_PORT GPIOB
+#define UART_RX_PIN GPIO_PIN_7
+#define UART_RX_PORT GPIOB
+
+#define I2C1_SCL_PIN GPIO_PIN_8
+#define I2C1_SCL_PORT GPIOB
+
+#define I2C1_SDA_PIN GPIO_PIN_9
+#define I2C1_SDA_PORT GPIOB
+
+#define I2C1_REMAP() __HAL_AFIO_REMAP_I2C1_ENABLE()
 #ifdef __cplusplus
 }
 #endif
