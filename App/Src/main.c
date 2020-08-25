@@ -20,9 +20,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "hw.h"
-#include "mpu6050.h"
-#include "mpu6050_platform.h"
-#include "nrf24.h"
+#include "nrf24_platform.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -50,10 +48,6 @@
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-/* USER CODE BEGIN PFP */
-
-/* USER CODE END PFP */
-
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
 
@@ -91,66 +85,46 @@ int main(void)
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
   //volatile HAL_StatusTypeDef s =
-  nRF24_CE_H;                // start receiving
-  uint8_t ADDR[] = {0xE8, 0xE8, 0xF1, 0xF0, 0xE1}; // the address for RX pipe
-  nRF24_DisableAA(0xFF);                           // disable ShockBurst
-  nRF24_SetRFChannel(76);                          // set RF channel to 2490MHz
-  nRF24_SetDataRate(nRF24_DR_250kbps);             // 2Mbit/s data rate
-  nRF24_SetCRCScheme(nRF24_CRC_1byte);             // 1-byte CRC scheme
-  nRF24_SetAddrWidth(5);                           // address width is 5 bytes
-  nRF24_SetAddr(nRF24_PIPE1, ADDR);                // program pipe address
-  nRF24_SetRXPipe(nRF24_PIPE1, nRF24_AA_OFF, 10);  // enable RX pipe#1 with Auto-ACK: disabled, payload length: 10 bytes
-  nRF24_SetOperationalMode(nRF24_MODE_RX);         // switch transceiver to the RX mode
-  nRF24_SetPowerMode(nRF24_PWR_UP);                // wake-up transceiver (in case if it sleeping)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   //int16_t acc[3] ={0};
-  _Atomic uint8_t b = 0;
-  _Atomic uint32_t i = 0;
-  HW_TIMER_PWM_ChangeDuty(1);
 
+  //HW_TIMER_PWM_ChangeDuty(1);
+  
+  //HW_UART_PRINTF("Start\n\r");
+
+
+//#define RX
+#ifdef RX
   uint8_t nRF24_payload[32]; // buffer for payload
   uint8_t payload_length;    // variable to store a length of received payload
   uint8_t pipe;              // pipe number
+  nRF24_SetupRx();
+#else
+  uint8_t buffer[] = { 0x01,0x02,0x03,0x04,0x05,0x06,0x07};
+  nRF24_SetupTx();
+#endif
 
   while (1)
   {
+#ifdef RX
     if (nRF24_GetStatus_RXFIFO() != nRF24_STATUS_RXFIFO_EMPTY)
     {
       // the RX FIFO have some data, take a note what nRF24 can hold up to three payloads of 32 bytes...
       pipe = nRF24_ReadPayload(nRF24_payload, &payload_length); // read a payload to buffer
       nRF24_ClearIRQFlags();
-                                                                // clear any pending IRQ bits
-                                                                // now the nRF24_payload buffer holds received data
-                                                                // payload_length variable holds a length of received data
-                                                                // pipe variable holds a number of the pipe which has received the data
-                                                                // ... do something with received data ...
-                                                                HW_UART_PRINTF("%d\n",pipe);
+      // clear any pending IRQ bits
+      // now the nRF24_payload buffer holds received data
+      // payload_length variable holds a length of received data
+      // pipe variable holds a number of the pipe which has received the data
+      // ... do something with received data ...
+      HW_UART_PRINTF("%d\n\r", pipe);
     }
-    
-    /* USER CODE END WHILE */
-    if (1)
-    {
-
-      HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-      HAL_GPIO_TogglePin(GPIOC, GPIO_PIN_13);
-      MPU6050_ReadBit(&MPU6050Dev, 0x3A, (uint8_t *)&b, 0);
-      //HW_UART_PRINTF("In %d ", b);
-      //HW_UART_PRINTF("\n");
-
-      //HW_UART_PRINTF("Out %d ", i);
-      //HW_UART_PRINTF("\n");
-      i = 0;
-    }
-    else
-    {
-
-      MPU6050_ReadBit(&MPU6050Dev, 0x3A, (uint8_t *)&b, 0);
-      //HW_UART_PRINTF("In %d ", b);
-      //HW_UART_PRINTF("\n");
-      i++;
-    }
+#else
+    volatile nRF24_TXResult st =  nRF24_TransmitPacket(buffer,4);
+    UNUSED(st);
+#endif
   }
 
   //HAL_GPIO_TogglePin(GPIOC,GPIO_PIN_13);

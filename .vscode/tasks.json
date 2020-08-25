@@ -6,7 +6,7 @@
         {
             "label": "Make Firmware",
             "type": "shell",
-            "command": "mingw32-make  all",
+            "command": "mingw32-make -j16 all",
             "options": {
                 "cwd": "${workspaceRoot}"
             },

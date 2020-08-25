@@ -16,7 +16,7 @@ void nRF24_GPIO_Init(void) {
 	// Configure CE pin
 	PORT.Pin = nRF24_CE_PIN;
 	HW_GPIO_Init(nRF24_CE_PORT,nRF24_CE_PIN, &PORT);
-	nRF24_CE_L;
+	nRF24_CE_L();
 }
 
 // Low level SPI transmit/receive function (hardware depended)

@@ -43,10 +43,9 @@ App/Src/hw_i2c.c \
 App/Src/hw_spi.c \
 App/Src/hw_uart.c \
 App/Src/hw_timer.c \
-Drivers/BSP/mpu6050/mpu6050.c \
-Drivers/BSP/mpu6050/mpu6050_platform.c \
 Drivers/BSP/nrf24l01/nrf24_hal.c \
 Drivers/BSP/nrf24l01/nrf24.c \
+Drivers/BSP/nrf24l01/nrf24_platform.c \
 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c \
 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_i2c.c \
 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c \
@@ -111,6 +110,7 @@ MCU = $(CPU) -mthumb $(FPU) $(FLOAT-ABI)
 # macros for gcc
 # AS defines
 AS_DEFS = 
+
 
 # C defines
 C_DEFS =  \
